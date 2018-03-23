@@ -20,11 +20,11 @@ pragma solidity 0.4.18;
 
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 import "../DebtRegistry.sol";
-import "../TermsContract.sol";
+import "../BaseTermsContract.sol";
 import "../TokenRegistry.sol";
 
 
-contract SimpleInterestTermsContract is TermsContract {
+contract SimpleInterestTermsContract is BaseTermsContract {
     using SafeMath for uint;
 
     enum AmortizationUnitType { HOURS, DAYS, WEEKS, MONTHS, YEARS }

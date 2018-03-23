@@ -21,7 +21,7 @@ pragma solidity 0.4.18;
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 import "zeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 
-import "../TermsContract.sol";
+import "../BaseTermsContract.sol";
 import "../DebtRegistry.sol";
 import "../TokenRegistry.sol";
 
@@ -38,7 +38,7 @@ import "../TokenRegistry.sol";
  *
  * Authors (in no particular order): nadavhollander, saturnial, jdkanani
  */
-contract Collateralized is TermsContract {
+contract Collateralized is BaseTermsContract {
     using SafeMath for uint;
 
     address public debtKernelAddress;
