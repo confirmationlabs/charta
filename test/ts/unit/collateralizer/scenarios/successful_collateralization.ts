@@ -1,7 +1,7 @@
 // external
 import { BigNumber } from "bignumber.js";
 
-import { RegisterTermStartScenario, TestContracts } from "../runners/";
+import { CollateralizeScenario, TestContracts } from "../runners/";
 
 // utils
 import * as Units from "../../../test_utils/units";
@@ -14,7 +14,7 @@ const defaultArgs = {
     termsContract: (collateralizedContract: string, attacker: string) => collateralizedContract,
 };
 
-export const SUCCESSFUL_COLLATERALIZATION_SCENARIOS: RegisterTermStartScenario[] = [
+export const SUCCESSFUL_COLLATERALIZATION_SCENARIOS: CollateralizeScenario[] = [
     {
         description: "Collateralize 0.005 REP with 20 day grace period",
         ...defaultArgs,

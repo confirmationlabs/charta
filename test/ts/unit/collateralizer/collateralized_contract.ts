@@ -1,17 +1,9 @@
 import * as ABIDecoder from "abi-decoder";
 import * as chai from "chai";
 import * as Units from "../../test_utils/units";
-import { BigNumber } from "bignumber.js";
-import * as Web3 from "web3";
-
-import {
-    CollateralLocked,
-    CollateralReturned,
-    CollateralSeized,
-} from "../../logs/collateralized_contract";
 
 // tslint:disable-next-line
-import { MockCollateralizedTermsContractContract } from "../../../../types/generated/mock_collateralized_terms_contract";
+import { MockCollateralizerContract } from "./../../../../types/generated/mock_collateralizer";
 import { TokenRegistryContract } from "../../../../types/generated/token_registry";
 import { MockDebtRegistryContract } from "../../../../types/generated/mock_debt_registry";
 import { MockERC20TokenContract } from "../../../../types/generated/mock_e_r_c20_token";
@@ -19,10 +11,9 @@ import { MockTokenRegistryContract } from "../../../../types/generated/mock_toke
 
 import { BigNumberSetup } from "../../test_utils/bignumber_setup";
 import ChaiSetup from "../../test_utils/chai_setup";
-import { REVERT_ERROR } from "../../test_utils/constants";
 
 // scenario runners
-import { RegisterTermStartRunner, ReturnCollateralRunner, SeizeCollateralRunner } from "./runners/";
+import { CollateralizeRunner, ReturnCollateralRunner, SeizeCollateralRunner } from "./runners/";
 
 // scenarios
 import { UNSUCCESSFUL_COLLATERALIZATION_SCENARIOS } from "./scenarios/unsuccessful_collateralization";
@@ -31,8 +22,6 @@ import { UNSUCCESSFUL_SEIZURE_SCENARIOS } from "./scenarios/unsuccessful_seizure
 import { SUCCESSFUL_SEIZURE_SCENARIOS } from "./scenarios/successful_seizure";
 import { UNSUCCESSFUL_RETURN_SCENARIOS } from "./scenarios/unsuccessful_return";
 import { SUCCESSFUL_RETURN_SCENARIOS } from "./scenarios/successful_return";
-
-import * as moment from "moment";
 
 // Set up Chai
 ChaiSetup.configure();
@@ -44,14 +33,14 @@ BigNumberSetup.configure();
 const mockCollateralizedContract = artifacts.require("MockCollateralizedTermsContract");
 
 contract("CollateralizedContract (Unit Tests)", async (ACCOUNTS) => {
-    let collateralContract: MockCollateralizedTermsContractContract;
+    let collateralContract: MockCollateralizerContract;
     let tokenRegistry: TokenRegistryContract;
     let mockToken: MockERC20TokenContract;
     let mockDebtRegistry: MockDebtRegistryContract;
     let mockTokenRegistry: MockTokenRegistryContract;
 
     // Scenario runnner
-    const registerTermStartRunner = new RegisterTermStartRunner();
+    const collateralizeRunner = new CollateralizeRunner();
     const returnCollateralRunner = new ReturnCollateralRunner();
     const seizeCollateralRunner = new SeizeCollateralRunner();
 
@@ -104,7 +93,7 @@ contract("CollateralizedContract (Unit Tests)", async (ACCOUNTS) => {
             .at(collateralContractTruffle.address);
 
         // Step 3: Instantiate a statically-typed version of the contract.
-        collateralContract = new MockCollateralizedTermsContractContract(
+        collateralContract = new MockCollateralizerContract(
             collateralContractWeb3Contract,
             TX_DEFAULTS,
         );
@@ -125,7 +114,7 @@ contract("CollateralizedContract (Unit Tests)", async (ACCOUNTS) => {
             MOCK_DEBT_KERNEL_ADDRESS,
         };
 
-        registerTermStartRunner.initialize(testContracts, testAccounts);
+        collateralizeRunner.initialize(testContracts, testAccounts);
         seizeCollateralRunner.initialize(testContracts, testAccounts);
         returnCollateralRunner.initialize(testContracts, testAccounts);
 
@@ -202,13 +191,13 @@ contract("CollateralizedContract (Unit Tests)", async (ACCOUNTS) => {
         });
     });
 
-    describe("#registerTermStart", () => {
+    describe("#collateralize", () => {
         describe("unsuccessful collateralizations", () => {
-            UNSUCCESSFUL_COLLATERALIZATION_SCENARIOS.forEach(registerTermStartRunner.testScenario);
+            UNSUCCESSFUL_COLLATERALIZATION_SCENARIOS.forEach(collateralizeRunner.testScenario);
         });
 
         describe("successful collateralizations", () => {
-            SUCCESSFUL_COLLATERALIZATION_SCENARIOS.forEach(registerTermStartRunner.testScenario);
+            SUCCESSFUL_COLLATERALIZATION_SCENARIOS.forEach(collateralizeRunner.testScenario);
         });
     });
 

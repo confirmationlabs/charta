@@ -9,7 +9,7 @@ import * as _ from "lodash";
 import * as Units from "../../../test_utils/units";
 
 // wrappers
-import { MockCollateralizedTermsContractContract } from "types/generated/mock_collateralized_terms_contract";
+import { MockCollateralizerContract } from "types/generated/mock_collateralizer";
 
 const defaultArgs = {
     collateralAmount: Units.ether(3),
@@ -78,7 +78,7 @@ export const UNSUCCESSFUL_RETURN_SCENARIOS: ReturnCollateralScenario[] = [
         description: "Debt's term has lapsed BUT collateral has already been seized",
         ...defaultArgs,
         valueRepaidToDate: Units.ether(0),
-        before: async (collateralContract: MockCollateralizedTermsContractContract) => {
+        before: async (collateralContract: MockCollateralizerContract) => {
             const agreementId = web3.sha3(
                 "Arbitrary 32 byte string for unsuccessful return scenario #6",
             );

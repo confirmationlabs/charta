@@ -1,17 +1,17 @@
 // Contract Wrappers
-import { MockCollateralizedTermsContractContract } from "types/generated/mock_collateralized_terms_contract";
+import { MockCollateralizerContract } from "types/generated/mock_collateralizer";
 import { MockDebtRegistryContract } from "types/generated/mock_debt_registry";
 import { MockERC20TokenContract } from "types/generated/mock_e_r_c20_token";
 import { MockTokenRegistryContract } from "types/generated/mock_token_registry";
 
-import { RegisterTermStartRunner } from "./register_term_start";
+import { CollateralizeRunner } from "./collateralize";
 import { ReturnCollateralRunner } from "./return_collateral";
 import { SeizeCollateralRunner } from "./seize_collateral";
 
 import { BigNumber } from "bignumber.js";
 
 export interface TestContracts {
-    mockCollateralizedTermsContract: MockCollateralizedTermsContractContract;
+    mockCollateralizedTermsContract: MockCollateralizerContract;
     mockDebtRegistry: MockDebtRegistryContract;
     mockCollateralToken: MockERC20TokenContract;
     mockTokenRegistry: MockTokenRegistryContract;
@@ -31,7 +31,7 @@ export interface ExpectedRepaymentValueDate {
     expectedRepaymentValue: BigNumber;
 }
 
-export interface RegisterTermStartScenario {
+export interface CollateralizeScenario {
     // Description string
     description: string;
     // Arbitrary agreement id used in this scenario
@@ -89,7 +89,7 @@ export interface SeizeCollateralScenario {
     // Specifies whether the call is expected to succeed.
     succeeds: boolean;
     // Before block
-    before?: (collateralizedContract: MockCollateralizedTermsContractContract) => Promise<void>;
+    before?: (collateralizedContract: MockCollateralizerContract) => Promise<void>;
 }
 
 export interface ReturnCollateralScenario {
@@ -120,7 +120,7 @@ export interface ReturnCollateralScenario {
     // Specifies whether the call is expected to succeed.
     succeeds: boolean;
     // Before block
-    before?: (collateralizedContract: MockCollateralizedTermsContractContract) => Promise<void>;
+    before?: (collateralizedContract: MockCollateralizerContract) => Promise<void>;
 }
 
-export { RegisterTermStartRunner, ReturnCollateralRunner, SeizeCollateralRunner };
+export { CollateralizeRunner, ReturnCollateralRunner, SeizeCollateralRunner };

@@ -5,7 +5,7 @@ import { compact } from "lodash";
 import { BigNumber } from "bignumber.js";
 
 // wrappers
-import { MockCollateralizedTermsContractContract } from "types/generated/mock_collateralized_terms_contract";
+import { MockCollateralizerContract } from "types/generated/mock_collateralizer";
 import { MockDebtRegistryContract } from "types/generated/mock_debt_registry";
 import { MockERC20TokenContract } from "types/generated/mock_e_r_c20_token";
 import { MockTokenRegistryContract } from "types/generated/mock_token_registry";
@@ -33,7 +33,7 @@ export class ReturnCollateralRunner {
     }
 
     public testScenario(scenario: ReturnCollateralScenario) {
-        let mockCollateralizedTermsContract: MockCollateralizedTermsContractContract;
+        let mockCollateralizedTermsContract: MockCollateralizerContract;
         let mockDebtRegistry: MockDebtRegistryContract;
         let mockCollateralToken: MockERC20TokenContract;
         let mockTokenRegistry: MockTokenRegistryContract;

@@ -1,4 +1,4 @@
-import { SeizeCollateralScenario, TestContracts } from "../runners/";
+import { SeizeCollateralScenario } from "../runners/";
 
 // external
 import { BigNumber } from "bignumber.js";
@@ -9,7 +9,7 @@ import * as _ from "lodash";
 import * as Units from "../../../test_utils/units";
 
 // wrappers
-import { MockCollateralizedTermsContractContract } from "types/generated/mock_collateralized_terms_contract";
+import { MockCollateralizerContract } from "types/generated/mock_collateralizer";
 
 const defaultArgs = {
     collateralAmount: Units.ether(1),
@@ -105,7 +105,7 @@ export const UNSUCCESSFUL_SEIZURE_SCENARIOS: SeizeCollateralScenario[] = [
     {
         description: "Collateral has already been seized",
         ...defaultArgs,
-        before: async (collateralContract: MockCollateralizedTermsContractContract) => {
+        before: async (collateralContract: MockCollateralizerContract) => {
             await collateralContract.seizeCollateral.sendTransactionAsync(
                 web3.sha3("Arbitrary 32 byte id for unsuccessful seizure scenario #8"),
             );
@@ -116,7 +116,7 @@ export const UNSUCCESSFUL_SEIZURE_SCENARIOS: SeizeCollateralScenario[] = [
         description: "Collateral has already been returned",
         ...defaultArgs,
         valueRepaidToDate: Units.ether(0.5),
-        before: async (collateralContract: MockCollateralizedTermsContractContract) => {
+        before: async (collateralContract: MockCollateralizerContract) => {
             const agreementId = web3.sha3(
                 "Arbitrary 32 byte id for unsuccessful seizure scenario #9",
             );

@@ -21,22 +21,22 @@ const defaultArgs = {
 };
 
 export const UNSUCCESSFUL_COLLATERALIZATION_SCENARIOS: RegisterTermStartScenario[] = [
-    {
-        description: "Caller is not debt kernel",
-        ...defaultArgs,
-        agreementId: web3.sha3(
-            "Arbitrary 32 byte id for unsuccessful collateralization scenario #1",
-        ),
-        from: (kernel: string, attacker: string) => attacker,
-    },
-    {
-        description: "Agreement refers to different terms contract",
-        ...defaultArgs,
-        agreementId: web3.sha3(
-            "Arbitrary 32 byte id for unsuccessful collateralization scenario #2",
-        ),
-        termsContract: (collateralizedContract: string, attacker: string) => attacker,
-    },
+    // {
+    //     description: "Caller is not debt kernel",
+    //     ...defaultArgs,
+    //     agreementId: web3.sha3(
+    //         "Arbitrary 32 byte id for unsuccessful collateralization scenario #1",
+    //     ),
+    //     from: (kernel: string, attacker: string) => attacker,
+    // },
+    // {
+    //     description: "Agreement refers to different terms contract",
+    //     ...defaultArgs,
+    //     agreementId: web3.sha3(
+    //         "Arbitrary 32 byte id for unsuccessful collateralization scenario #2",
+    //     ),
+    //     termsContract: (collateralizedContract: string, attacker: string) => attacker,
+    // },
     {
         description: "Amount being put up for collateral is zero",
         ...defaultArgs,
